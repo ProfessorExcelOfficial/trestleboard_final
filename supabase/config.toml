@@ -1,0 +1,33 @@
+
+[functions.admin-create-lodge-with-wm]
+enabled = true
+verify_jwt = true
+import_map = "./functions/admin-create-lodge-with-wm/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/admin-create-lodge-with-wm/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/admin-create-lodge-with-wm/*.html" ]
+
+[functions.send-enrollment-code]
+enabled = true
+verify_jwt = true
+import_map = "./functions/send-enrollment-code/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/send-enrollment-code/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/send-enrollment-code/*.html" ]
+
+[functions.verify-enrollment-code]
+enabled = true
+verify_jwt = true
+import_map = "./functions/verify-enrollment-code/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/verify-enrollment-code/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/verify-enrollment-code/*.html" ]
