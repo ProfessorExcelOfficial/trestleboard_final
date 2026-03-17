@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'member_profile_screen.dart';
+import 'brethren_screen.dart'; // ✅ ADDED
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -33,10 +34,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _loadDashboard();
   }
 
-  /// ----------------------------------------------------------
-  /// NAME FORMATTER
-  /// ----------------------------------------------------------
-
   String toProperCase(String name) {
     if (name.isEmpty) return "";
     return name.split(" ").map((word) {
@@ -44,10 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     }).join(" ");
   }
-
-  /// ----------------------------------------------------------
-  /// TIME AGO FORMAT
-  /// ----------------------------------------------------------
 
   String timeAgo(DateTime date) {
     final diff = DateTime.now().difference(date);
@@ -59,10 +52,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return "${date.month}/${date.day}/${date.year}";
   }
-
-  /// ----------------------------------------------------------
-  /// LOAD DASHBOARD
-  /// ----------------------------------------------------------
 
   Future<void> _loadDashboard() async {
     try {
@@ -90,17 +79,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  /// ----------------------------------------------------------
-  /// LOGOUT
-  /// ----------------------------------------------------------
-
   Future<void> _logout() async {
     await supabase.auth.signOut();
   }
-
-  /// ----------------------------------------------------------
-  /// POST COMPOSER
-  /// ----------------------------------------------------------
 
   void _openComposer() {
     showModalBottomSheet(
@@ -155,10 +136,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// ----------------------------------------------------------
-  /// TODAY PANEL
-  /// ----------------------------------------------------------
-
   Widget _todayPanel() {
     return Card(
       child: Column(
@@ -179,10 +156,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// ----------------------------------------------------------
-  /// FEED CARD
-  /// ----------------------------------------------------------
-
   Widget _feedCard(Map post) {
     final firstName = toProperCase(post['first_name'] ?? '');
     final lastName = post['family_name'] ?? '';
@@ -197,7 +170,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// HEADER
             Row(
               children: [
                 CircleAvatar(
@@ -240,15 +212,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 )
               ],
             ),
-
             const SizedBox(height: 10),
-
-            /// CONTENT
             if (post['content'] != null) Text(post['content']),
-
             const SizedBox(height: 10),
-
-            /// PHOTOS
             if (photos.isNotEmpty)
               SizedBox(
                 height: 200,
@@ -267,10 +233,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   },
                 ),
               ),
-
             const Divider(),
-
-            /// REACTIONS
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -292,10 +255,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// ----------------------------------------------------------
-  /// HOME CONTENT
-  /// ----------------------------------------------------------
-
   Widget _homeContent() {
     final firstName = member?['first_name'] ?? '';
     final lodgeName =
@@ -307,7 +266,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        /// MEMBER HEADER
         Row(
           children: [
             CircleAvatar(
@@ -338,14 +296,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             )
           ],
         ),
-
         const SizedBox(height: 20),
-
-        /// TODAY PANEL
         _todayPanel(),
-
         const SizedBox(height: 20),
-
         const Text(
           "Lodge Feed",
           style: TextStyle(
@@ -353,9 +306,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             fontSize: 16,
           ),
         ),
-
         const SizedBox(height: 10),
-
         if (feedLoading)
           const Center(child: CircularProgressIndicator())
         else
@@ -364,16 +315,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  /// ----------------------------------------------------------
-  /// BODY SWITCH
-  /// ----------------------------------------------------------
-
   Widget _getBody() {
     switch (_selectedIndex) {
       case 0:
         return loading
             ? const Center(child: CircularProgressIndicator())
             : _homeContent();
+
+      case 1:
+        return const BrethrenScreen(); // ✅ UPDATED
 
       case 4:
         return const MemberProfileScreen();
@@ -384,10 +334,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         );
     }
   }
-
-  /// ----------------------------------------------------------
-  /// BUILD
-  /// ----------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -422,10 +368,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-
       body: _getBody(),
-
-      /// FLOATING POST BUTTON
       floatingActionButton: _selectedIndex == 0
           ? FloatingActionButton(
               backgroundColor: const Color(0xFF0D2D62),
@@ -433,7 +376,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: const Icon(Icons.add),
             )
           : null,
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
