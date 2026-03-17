@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'login_screen.dart';
 import 'dashboard_screen.dart';
@@ -26,11 +27,15 @@ class _IntroScreenState extends State<IntroScreen>
 
   bool _isNavigating = false;
 
+  String _version = "";
+
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
+
+    _loadVersion();
 
     _animationController = AnimationController(
       vsync: this,
@@ -83,6 +88,15 @@ class _IntroScreenState extends State<IntroScreen>
         print("Session found → routing user");
         await _routeUser();
       }
+    });
+  }
+
+  /// Load app version
+  Future<void> _loadVersion() async {
+    final info = await PackageInfo.fromPlatform();
+
+    setState(() {
+      _version = "v${info.version}+${info.buildNumber}";
     });
   }
 
@@ -220,7 +234,9 @@ class _IntroScreenState extends State<IntroScreen>
                           'assets/images/logo.png',
                           width: 150,
                         ),
+
                         const SizedBox(height: 12),
+
                         const Text(
                           "Trestle Board",
                           textAlign: TextAlign.center,
@@ -228,6 +244,17 @@ class _IntroScreenState extends State<IntroScreen>
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF0A2A66),
+                          ),
+                        ),
+
+                        const SizedBox(height: 4),
+
+                        /// VERSION
+                        Text(
+                          _version,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
                           ),
                         ),
                       ],
@@ -247,10 +274,13 @@ class _IntroScreenState extends State<IntroScreen>
                           color: Colors.grey,
                         ),
                       ),
+
                       const SizedBox(height: 6),
+
+                      /// SMALLER PROFEX LOGO
                       Image.asset(
                         'assets/images/profex.png',
-                        width: 180,
+                        width: 110,
                       ),
                     ],
                   ),
