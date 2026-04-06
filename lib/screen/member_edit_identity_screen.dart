@@ -160,7 +160,7 @@ class _MemberEditIdentityScreenState extends State<MemberEditIdentityScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: DropdownButtonFormField<String>(
-                value: bloodType,
+                initialValue: bloodType,
                 items: bloodTypes.map((b) {
                   return DropdownMenuItem(
                     value: b,

@@ -24,6 +24,8 @@ dependencies:
   share_plus_dialog: ^2.0.1
   auto_size_text: ^3.0.0
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,5 +50,5 @@ flutter_launcher_icons:
    # Required (fallback)
   image_path: "assets/images/app_icon_foreground.png"
 
-  adaptive_icon_background: "#0A2A66"
+  adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/images/app_icon_foreground.png"

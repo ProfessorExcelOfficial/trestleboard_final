@@ -135,9 +135,7 @@ class _MemberProfileScreenState extends State<MemberProfileScreen> {
   // =========================
 
   String getDisplayRank(MemberProfile p) {
-    if (p.role != null &&
-        p.role.trim().isNotEmpty &&
-        p.role.toLowerCase() != "member") {
+    if (p.role.trim().isNotEmpty && p.role.toLowerCase() != "member") {
       return p.role;
     }
     return "Master Mason";

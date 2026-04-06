@@ -145,7 +145,7 @@ class _MemberEditWorkScreenState extends State<MemberEditWorkScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: DropdownButtonFormField<int>(
-        value: selectedOccupationId,
+        initialValue: selectedOccupationId,
         decoration: const InputDecoration(
           labelText: "Occupation",
           border: OutlineInputBorder(),

@@ -64,5 +64,11 @@ class AppTheme {
       ),
       labelStyle: const TextStyle(color: Color(0xFF0A2A66)),
     ),
+
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: Color(0xFF0D2D62),
+      unselectedItemColor: Colors.black54,
+      showUnselectedLabels: true,
+    ),
   );
 }
